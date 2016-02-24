@@ -280,6 +280,7 @@ scheduler(void)
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
+	  // T Cooperative because of the comment above
       proc = p;
       switchuvm(p);
       p->state = RUNNING;
@@ -435,12 +436,12 @@ void
 procdump(void)
 {
   static char *states[] = {
-  [UNUSED]    "unused",
-  [EMBRYO]    "embryo",
-  [SLEEPING]  "sleep ",
-  [RUNNABLE]  "runble",
-  [RUNNING]   "run   ",
-  [ZOMBIE]    "zombie"
+  [UNUSED]    "unused", // T Set to be executed at some but, but not yet initialized
+  [EMBRYO]    "embryo", // T (new)Is set right before initialization
+  [SLEEPING]  "sleep ", // T The thread is blocked
+  [RUNNABLE]  "runble", // T (ready) The process is able to be run
+  [RUNNING]   "run   ", // T Process is currently being executed
+  [ZOMBIE]    "zombie"  // T Thread has terminated
   };
   int i;
   struct proc *p;
