@@ -31,6 +31,7 @@ pinit(void)
 // If found, change state to EMBRYO and initialize
 // state required to run in the kernel.
 // Otherwise return 0.
+// T Vi har en process der skal starte, men for at jeg kan starte processen, så skal jeg have en plads i mit p table som er vores process table. Der har alle mine processer forskellige states, Vi kører dem alle igennem, når vi møder en der er unused, så er det fordi at der ikke er noget på den plads i table. Det vi gør er at vi går hen og bruger den palds
 static struct proc*
 allocproc(void)
 {
