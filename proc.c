@@ -282,6 +282,11 @@ scheduler(void)
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
 	  // T Cooperative because of the comment above
+	  
+	  // T printf("%d", p->pid);	--> new 
+	  // T printf("%d", proc->pid); --> old
+	  
+	  // T printf("%d", proc); --> running process pointer
       proc = p;
       switchuvm(p);
       p->state = RUNNING;
@@ -293,7 +298,6 @@ scheduler(void)
       proc = 0;
     }
     release(&ptable.lock);
-
   }
 }
 
